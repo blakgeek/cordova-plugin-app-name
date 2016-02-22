@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<plugin id="cordova-plugin-app-name" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>App Namer</name>
+    <author>Carlos "blakgeek" Lawton</author>
+    <description>
+        Cordova/Phonegap plugin that allows you to put spaces in the display name of your app.
+    </description>
+    <keywords>cordova, ios, app, name, spaces</keywords>
+    <license>MIT</license>
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <preference name="APP_NAME"/>
+    <hook type="after_prepare" src="src/rename-app.js"/>
+
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <preference name="AppName" value="$APP_NAME"/>
+        </config-file>
+    </platform>
+
+    <platform name="ios">
+        <config-file target="*-Info.plist" parent="CFBundleName">
+            <string>$APP_NAME</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="CFBundleDisplayName">
+            <string>$APP_NAME</string>
+        </config-file>
+    </platform>
+</plugin>
