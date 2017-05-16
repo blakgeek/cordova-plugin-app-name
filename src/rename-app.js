@@ -42,7 +42,7 @@ module.exports = function (context) {
                 }
             });
 
-            fs.writeFile(stringsPath, builder.buildObject(data));
+            fs.writeFileSync(stringsPath, builder.buildObject(data));
 
         });
     }
