@@ -12,6 +12,8 @@ var builder = new xml2js.Builder({
 });
 
 module.exports = function (context) {
+    var Q = context.requireCordovaModule('q');
+    var deferral = new Q.defer();
 
     console.log('Attempting to set app name');
 
@@ -42,10 +44,16 @@ module.exports = function (context) {
                 }
             });
 
-            fs.writeFile(stringsPath, builder.buildObject(data));
+            fs.writeFile(stringsPath, builder.buildObject(data), (err) => {
+                if (err) {
+                    deferral.reject(err);
+                }
+                deferral.resolve();
+            });
 
         });
     }
+    return deferral.promise;
 };
 
 function getConfigParser(context, config) {
