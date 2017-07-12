@@ -12,12 +12,12 @@
     </engines>
 
     <preference name="APP_NAME"/>
-    <hook type="after_prepare" src="src/rename-app.js"/>
 
     <platform name="android">
         <config-file target="config.xml" parent="/*">
             <preference name="AppName" value="$APP_NAME"/>
         </config-file>
+        <hook type="after_prepare" src="src/rename-app.js"/>
     </platform>
 
     <platform name="ios">
