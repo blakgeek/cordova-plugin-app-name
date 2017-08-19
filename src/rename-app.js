@@ -13,6 +13,8 @@ var builder = new xml2js.Builder({
 
 module.exports = function (context) {
 
+    if(context.opts.platforms.indexOf('android') === -1) return;
+
     console.log('Attempting to set app name');
 
     var projectRoot = context.opts.projectRoot;
