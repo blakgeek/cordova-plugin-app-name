@@ -31,6 +31,9 @@
   "dependencies": {
     "xml2js": "^0.4.16"
   },
+  "devDependencies": {
+    "libxmljs": "^0.18.4"
+  },
   "scripts": {
     "postversion": "node scripts/sync-plugin-version.js; git add plugin.xml; git commit plugin.xml -m \"v${npm_package_version}\""
   }
