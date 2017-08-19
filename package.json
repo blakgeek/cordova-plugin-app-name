@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-app-name",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Cordova/PhoneGap plugin that allows you to give you app a name with spaces and special characters and stuff.",
   "cordova": {
     "id": "cordova-plugin-app-name",
