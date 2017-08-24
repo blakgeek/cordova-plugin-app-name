@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
-var path = require("path");
+var path = require('path');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var builder = new xml2js.Builder({
@@ -34,6 +34,10 @@ module.exports = function (context) {
     if (name) {
         stringsXml = fs.readFileSync(stringsPath, 'UTF-8');
         parser.parseString(stringsXml, function (err, data) {
+            if(!data || !data.resources) {
+                console.error('Error parsing android strings.xml.');
+                return;
+            }
 
             data.resources.string.forEach(function (string) {
 
