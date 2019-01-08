@@ -18,14 +18,15 @@ module.exports = function (context) {
     console.log('Attempting to set app name');
 
     var projectRoot = context.opts.projectRoot;
-    var configPath = path.join(projectRoot, 'platforms', 'android', 'res', 'xml', 'config.xml');
-    var stringsPath = path.join(projectRoot, 'platforms', 'android', 'res', 'values', 'strings.xml');
+    var configPath = path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'res', 'xml', 'config.xml');
+    var stringsPath = path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'res', 'values', 'strings.xml');
     var stringsXml, name;
 
     // make sure the android config file exists
     try {
         fs.accessSync(configPath, fs.F_OK);
     } catch(e) {
+        console.error("Error accessing config path: ", e);
         return;
     }
 
