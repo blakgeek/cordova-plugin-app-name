@@ -18,8 +18,11 @@ module.exports = function (context) {
     console.log('Attempting to set app name');
 
     var projectRoot = context.opts.projectRoot;
-    var configPath = path.join(projectRoot, 'platforms', 'android', 'res', 'xml', 'config.xml');
-    var stringsPath = path.join(projectRoot, 'platforms', 'android', 'res', 'values', 'strings.xml');
+
+    const usesNewStructure = fs.existsSync(path.join(projectRoot, 'platforms', 'android', 'app'));
+    const basePath = usesNewStructure ? path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main') : path.join(projectRoot, 'platforms', 'android');
+    var configPath = path.join(basePath, 'res', 'xml', 'config.xml');
+    var stringsPath = path.join(basePath, 'res', 'values', 'strings.xml');
     var stringsXml, name;
 
     // make sure the android config file exists
