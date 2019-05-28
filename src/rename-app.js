@@ -3,6 +3,7 @@
 var fs = require('fs');
 var path = require("path");
 var xml2js = require('xml2js');
+var semver = require('semver');
 var parser = new xml2js.Parser();
 var builder = new xml2js.Builder({
     xmldec: {
@@ -20,15 +21,15 @@ module.exports = function (context) {
     var projectRoot = context.opts.projectRoot;
 
     const usesNewStructure = fs.existsSync(path.join(projectRoot, 'platforms', 'android', 'app'));
-    const basePath = usesNewStructure ? path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main') : path.join(projectRoot, 'platforms', 'android');
-    var configPath = path.join(basePath, 'res', 'xml', 'config.xml');
-    var stringsPath = path.join(basePath, 'res', 'values', 'strings.xml');
+    var configPath = path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'res', 'xml', 'config.xml');
+    var stringsPath =  path.join(projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'res', 'values', 'strings.xml');
     var stringsXml, name;
 
     // make sure the android config file exists
     try {
         fs.accessSync(configPath, fs.F_OK);
     } catch(e) {
+        console.error("Error accessing config path: ", e);
         return;
     }
 
@@ -54,7 +55,6 @@ module.exports = function (context) {
 };
 
 function getConfigParser(context, config) {
-    var semver = context.requireCordovaModule('semver');
 
     if (semver.lt(context.opts.cordova.version, '5.4.0')) {
         ConfigParser = context.requireCordovaModule('cordova-lib/src/ConfigParser/ConfigParser');
