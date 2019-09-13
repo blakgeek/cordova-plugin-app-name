@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require("path");
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
+var semver = require('semver');
 var builder = new xml2js.Builder({
     xmldec: {
         version: '1.0',
@@ -29,6 +30,7 @@ module.exports = function (context) {
     try {
         fs.accessSync(configPath, fs.F_OK);
     } catch(e) {
+        console.error(`Could not find android config.xml at ${configPath}`);
         return;
     }
 
@@ -54,7 +56,6 @@ module.exports = function (context) {
 };
 
 function getConfigParser(context, config) {
-    var semver = context.requireCordovaModule('semver');
 
     if (semver.lt(context.opts.cordova.version, '5.4.0')) {
         ConfigParser = context.requireCordovaModule('cordova-lib/src/ConfigParser/ConfigParser');
